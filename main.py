@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-import google.generativeai as genai
+import google.genai as genai
+
 import os
 from dotenv import load_dotenv
 
@@ -30,3 +31,4 @@ async def chat(request: Request):
     response = model.generate_content(user_message)
     
     return {"reply": response.text}
+
