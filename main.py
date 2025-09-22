@@ -22,13 +22,13 @@ async def chat(request: Request):
     data = await request.json()
     user_message = data.get("message", "")
 
-    # Generate a response using a chat model
-    response = client.chat(
+    # Generate a response using chats.create
+    response = client.chats.create(
         model="gemini-2.0-flash",
-        messages=[{"role": "user", "content": user_message}]
+        messages=[{"author": "user", "content": [{"type": "text", "text": user_message}]}]
     )
 
-    # Extract the text reply
-    reply_text = response.choices[0].content[0].text
+    # Extract the reply text
+    reply_text = response.output[0].content[0].text
 
     return {"reply": reply_text}
